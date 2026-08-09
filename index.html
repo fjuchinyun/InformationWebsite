@@ -82,21 +82,43 @@
     object-fit:cover;
     border-radius:50%;
   }
-  .logo::after{
-    content:"♪";
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+  .logo span{max-width:100px;line-height:1.5}
+
+  /* 音符音樂開關（漂浮在 logo 右上角） */
+  .note-btn{
     position:absolute;
     top:-10px;right:-6px;
     width:38px;height:38px;
     background:var(--accent);
     color:#fff;
+    border:none;
     border-radius:50%;
     display:flex;align-items:center;justify-content:center;
     font-size:20px;
+    cursor:pointer;
     box-shadow:0 6px 14px rgba(238,194,75,.5);
     animation:bob 3s ease-in-out infinite;
+    z-index:5;
+    padding:0;
+    transition:background .2s ease, transform .15s ease;
   }
-  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-  .logo span{max-width:100px;line-height:1.5}
+  .note-btn:hover{transform:scale(1.08)}
+  .note-btn:active{transform:scale(.96)}
+  .note-btn .note-ico{position:relative;line-height:1;display:block}
+  /* 關閉時：音符變淡、蓋上一條斜線 */
+  .note-btn.muted{background:var(--ink-soft)}
+  .note-btn.muted .note-ico{opacity:.85}
+  .note-btn.muted .note-ico::after{
+    content:"";
+    position:absolute;
+    left:50%;top:50%;
+    width:26px;height:2.5px;
+    background:#fff;
+    border-radius:2px;
+    transform:translate(-50%,-50%) rotate(-45deg);
+    box-shadow:0 0 0 1px rgba(91,134,160,.6);
+  }
 
   /* title */
   .title{
@@ -182,6 +204,10 @@
     position:relative;
     overflow:hidden;
     transition:transform .18s ease, box-shadow .18s ease;
+    width:100%;
+    text-align:left;
+    font-family:inherit;
+    cursor:pointer;
   }
   /* left accent strip */
   .link::before{
@@ -225,6 +251,75 @@
   }
   .link:hover .arrow{transform:translateX(4px)}
 
+  /* 畫面切換：主頁 vs Q&A（同一頁內切換，音樂不中斷） */
+  .view{ width:100%; }
+  .view[hidden]{ display:none; }
+  .view{ animation:fadeIn .3s ease; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:translateY(0)} }
+
+  /* Q&A 返回按鈕 */
+  .back{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-top:36px;
+    margin-bottom:4px;
+    padding:10px 18px;
+    background:var(--card);
+    border:1px solid rgba(255,255,255,.6);
+    border-radius:999px;
+    color:var(--ink);
+    font-family:inherit;
+    font-size:14px;
+    font-weight:500;
+    cursor:pointer;
+    box-shadow:0 4px 14px var(--shadow);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .back:hover{transform:translateX(-3px);box-shadow:0 8px 20px var(--shadow)}
+  .qa-title{
+    text-align:center;
+    font-size:20px;
+    font-weight:900;
+    color:var(--ink);
+    margin:18px 0 22px;
+  }
+
+  /* Q&A 折疊清單 */
+  .faq{ display:flex; flex-direction:column; gap:14px; }
+  .item{
+    background:var(--card);
+    border-radius:18px;
+    box-shadow:0 6px 18px var(--shadow);
+    border:1px solid rgba(255,255,255,.6);
+    overflow:hidden;
+    position:relative;
+  }
+  .item::before{
+    content:"";
+    position:absolute;
+    left:0;top:0;bottom:0;
+    width:5px;
+    background:linear-gradient(180deg,var(--accent) 0%,var(--accent-deep) 100%);
+  }
+  .q{
+    width:100%; text-align:left; background:none; border:none; cursor:pointer;
+    padding:18px 20px 18px 24px;
+    display:flex; align-items:center; gap:12px;
+    font-family:inherit; font-size:15.5px; font-weight:700; color:var(--ink); line-height:1.5;
+  }
+  .q .qmark{
+    flex-shrink:0; width:28px;height:28px; border-radius:50%;
+    background:linear-gradient(135deg,#fdeec0,#f7d774);
+    display:flex;align-items:center;justify-content:center;
+    font-family:"Poppins",sans-serif; font-weight:700; font-size:14px; color:var(--ink);
+  }
+  .q .qtext{flex:1}
+  .q .plus{ flex-shrink:0; font-size:21px; color:var(--ink-soft); transition:transform .25s ease; line-height:1; }
+  .item.open .plus{transform:rotate(45deg)}
+  .a{ max-height:0; overflow:hidden; transition:max-height .3s ease; }
+  .a-inner{ padding:0 20px 18px 24px; font-size:14px; line-height:1.75; color:#4a4a4a; font-weight:400; }
+
   /* footer */
   .foot{
     margin-top:44px;
@@ -249,7 +344,20 @@
          （記得把 logo_48.jpg 換成你實際上傳的圖片檔名） -->
     <div class="logo">
       <img src="logo_48.jpg" alt="輔大青韻獎logo">
+
+      <!-- 音符音樂開關：點一下播放/靜音音樂。關閉時音符會蓋上斜線。 -->
+      <button class="note-btn muted" id="musicToggle" aria-label="播放背景音樂">
+        <span class="note-ico">♪</span>
+      </button>
     </div>
+
+    <!-- ============================================================
+         改背景音樂在這裡！
+         做法：把音樂檔(例如 music.mp3)上傳到跟 index.html 同一個資料夾，
+         再把下面 src="..." 引號內的檔名換成你的音樂檔名。
+         ★務必使用「免版權/可自由使用」的音樂，不要用有版權的歌曲。
+         ============================================================ -->
+    <audio id="bgm" src="music.mp3" loop preload="none"></audio>
 
     <!-- 改屆數在這裡！（下面三行的 49 / 49TH 換成新的屆數即可） -->
     <div class="title">
@@ -281,36 +389,153 @@
       </a>
     </div>
 
-    <div class="links">
+    <!-- ===== 主頁畫面 ===== -->
+    <div class="view" id="homeView">
+      <div class="links">
 
-      <!-- 新增項目在這裡！-->
+        <!-- 新增項目在這裡！-->
 
-      <!-- 改市集招募表單網址在這裡！(屆數記得也要改) -->
-      <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLSdrP1IR5cICU_wI-M6yIjxuKnBARARk191aHvuCqYys1Gt_ZA/viewform?usp=publish-editor" target="_blank" rel="noopener">
-        <div class="icon">🎪</div>
-        <div class="text">
-          <div class="name">49屆青韻市集招募</div>
-          <div class="desc">攤位報名，一起加入市集</div>
+        <!-- 改市集招募表單網址在這裡！(屆數記得也要改) -->
+        <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLSdrP1IR5cICU_wI-M6yIjxuKnBARARk191aHvuCqYys1Gt_ZA/viewform?usp=publish-editor" target="_blank" rel="noopener">
+          <div class="icon">🎪</div>
+          <div class="text">
+            <div class="name">49屆青韻市集招募</div>
+            <div class="desc">攤位報名，一起加入市集</div>
+          </div>
+          <div class="arrow">→</div>
+        </a>
+
+        <!-- 常見問題 Q&A 入口：點了會在「同一頁」切換到 Q&A 畫面（音樂不中斷）。
+             問答內容要去下面 id="qaView" 的區塊裡改。 -->
+        <button class="link" onclick="showQA()">
+          <div class="icon">🎵</div>
+          <div class="text">
+            <div class="name">常見問題 Q&amp;A</div>
+            <div class="desc">報名、資格、規則，一次看懂</div>
+          </div>
+          <div class="arrow">→</div>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- ===== Q&A 畫面（預設隱藏，點入口才顯示）===== -->
+    <div class="view" id="qaView" hidden>
+
+      <button class="back" onclick="showHome()">← 返回首頁</button>
+
+      <div class="qa-title">🎵 常見問題 Q&amp;A</div>
+
+      <div class="faq">
+
+        <!-- ============================================================
+             新增問答在這裡！
+             要多加一題，就複製下面整段 <div class="item">...</div> 貼上，
+             再改兩個地方：
+               1. <span class="qtext">  → 換成問題
+               2. <div class="a-inner"> → 換成答案
+             （前面的 Q 圓圈、+ 號都不用動）
+             ============================================================ -->
+
+        <div class="item">
+          <button class="q">
+            <span class="qmark">Q</span>
+            <span class="qtext">報名資格是什麼？誰可以參加？</span>
+            <span class="plus">+</span>
+          </button>
+          <div class="a"><div class="a-inner">（範例答案，請改成實際內容）凡本校在學學生皆可報名參加，詳細資格請參閱簡章說明。</div></div>
         </div>
-        <div class="arrow">→</div>
-      </a>
 
-      <!-- 常見問題 Q&A 入口：點了會跳到 qa.html 這個問答頁面。
-           問答內容要去 qa.html 裡面改，不是在這裡。 -->
-      <a class="link" href="qa.html">
-        <div class="icon">🎵</div>
-        <div class="text">
-          <div class="name">常見問題 Q&amp;A</div>
-          <div class="desc">報名、資格、規則，一次看懂</div>
+        <div class="item">
+          <button class="q">
+            <span class="qmark">Q</span>
+            <span class="qtext">可以幾個人一組報名？</span>
+            <span class="plus">+</span>
+          </button>
+          <div class="a"><div class="a-inner">（範例答案，請改成實際內容）個人組與團體組皆可報名，團體人數上限請以簡章公告為準。</div></div>
         </div>
-        <div class="arrow">→</div>
-      </a>
 
+        <div class="item">
+          <button class="q">
+            <span class="qmark">Q</span>
+            <span class="qtext">報名要準備哪些資料？</span>
+            <span class="plus">+</span>
+          </button>
+          <div class="a"><div class="a-inner">（範例答案，請改成實際內容）需填寫線上報名表並上傳指定資料，細節請見報名表單說明。</div></div>
+        </div>
+
+        <div class="item">
+          <button class="q">
+            <span class="qmark">Q</span>
+            <span class="qtext">報名截止後還能補件嗎？</span>
+            <span class="plus">+</span>
+          </button>
+          <div class="a"><div class="a-inner">（範例答案，請改成實際內容）如有相關規定將另行公告，建議於截止前完成所有報名程序。</div></div>
+        </div>
+
+        <!-- 新增問答就複製上面一整段 <div class="item">...</div> 貼在這行前面 -->
+
+      </div>
     </div>
 
     <!-- 改屆數在這裡！（頁尾的 49） -->
     <div class="foot">FU JEN CHIN YUN AWARD · 49</div>
 
   </div>
+<script>
+  // 音符 = 背景音樂開關
+  (function(){
+    var audio = document.getElementById('bgm');
+    var btn = document.getElementById('musicToggle');
+    if(!audio || !btn) return;
+
+    audio.volume = 0.35; // 音量（0～1，數字越小越小聲）
+
+    function setMuted(isMuted){
+      if(isMuted){
+        audio.pause();
+        btn.classList.add('muted');
+        btn.setAttribute('aria-label','播放背景音樂');
+      } else {
+        btn.classList.remove('muted');
+        btn.setAttribute('aria-label','關閉背景音樂');
+        var p = audio.play();
+        if(p && p.catch){ p.catch(function(){ /* 使用者尚未互動，忽略 */ }); }
+      }
+    }
+
+    btn.addEventListener('click', function(){
+      var isMuted = btn.classList.contains('muted');
+      setMuted(!isMuted); // 切換播放/靜音
+    });
+  })();
+
+  // 主頁 <-> Q&A 畫面切換（同一頁，音樂不中斷）
+  function showQA(){
+    document.getElementById('homeView').hidden = true;
+    document.getElementById('qaView').hidden = false;
+    window.scrollTo(0,0);
+  }
+  function showHome(){
+    document.getElementById('qaView').hidden = true;
+    document.getElementById('homeView').hidden = false;
+    window.scrollTo(0,0);
+  }
+
+  // Q&A：點問題展開/收合答案
+  document.querySelectorAll('.q').forEach(function(qbtn){
+    qbtn.addEventListener('click', function(){
+      var item = qbtn.parentElement;
+      var ans = item.querySelector('.a');
+      if(item.classList.contains('open')){
+        item.classList.remove('open');
+        ans.style.maxHeight = null;
+      } else {
+        item.classList.add('open');
+        ans.style.maxHeight = ans.scrollHeight + 'px';
+      }
+    });
+  });
+</script>
 </body>
 </html>
