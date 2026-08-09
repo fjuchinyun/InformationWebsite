@@ -254,6 +254,33 @@
   }
   .link:hover .arrow{transform:translateX(4px)}
 
+  /* 「即將開放」狀態：暗色、不能點 */
+  .link.soon{
+    background:#eef2f6;
+    box-shadow:0 4px 12px rgba(47,95,122,.08);
+    cursor:default;
+    opacity:.75;
+    pointer-events:none;
+  }
+  .link.soon::before{
+    background:var(--line); /* 左側色條變淡灰藍 */
+  }
+  .link.soon .icon{
+    background:#dbe4ec;
+    filter:grayscale(.4);
+  }
+  .link.soon .text .name{ color:var(--ink-soft); }
+  .link.soon .badge{
+    flex-shrink:0;
+    font-size:11.5px;
+    font-weight:700;
+    color:var(--ink-soft);
+    background:#dbe4ec;
+    padding:4px 10px;
+    border-radius:999px;
+    letter-spacing:.5px;
+  }
+
   /* 畫面切換：主頁 vs Q&A（同一頁內切換，音樂不中斷） */
   .view{ width:100%; }
   .view[hidden]{ display:none; }
@@ -418,6 +445,42 @@
           </div>
           <div class="arrow">→</div>
         </button>
+
+        <!-- ============================================================
+             即將開放的項目在這裡！（暗色、不能點）
+             等某項開放時，把那一段整段換成正常的可點項目：
+               1. 把 <div class="link soon"> 的 soon 拿掉 → 變成 <a class="link" href="網址" target="_blank" rel="noopener">
+                  （開頭 <div 改成 <a、加上 href；結尾 </div> 改成 </a>）
+               2. 把 <span class="badge">即將開放</span> 改成 <div class="arrow">→</div>
+             可參考上面「市集招募」那一段正常項目的寫法照著改。
+             ============================================================ -->
+
+        <div class="link soon">
+          <div class="icon">📝</div>
+          <div class="text">
+            <div class="name">初賽報名表單</div>
+            <div class="desc">開放後即可線上報名</div>
+          </div>
+          <span class="badge">即將開放</span>
+        </div>
+
+        <div class="link soon">
+          <div class="icon">📷</div>
+          <div class="text">
+            <div class="name">活動照片</div>
+            <div class="desc">精彩花絮，敬請期待</div>
+          </div>
+          <span class="badge">即將開放</span>
+        </div>
+
+        <div class="link soon">
+          <div class="icon">📖</div>
+          <div class="text">
+            <div class="name">比賽簡章</div>
+            <div class="desc">賽制與規則詳情</div>
+          </div>
+          <span class="badge">即將開放</span>
+        </div>
 
       </div>
     </div>
