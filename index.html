@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- 改屆數在這裡！（瀏覽器分頁上的標題） -->
+<!-- ★改屆數在這裡！（瀏覽器分頁上顯示的標題） -->
 <title>輔大青韻獎 49屆</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -244,14 +244,16 @@
 <body>
   <div class="wrap">
 
-    <!-- 改logo在這裡！
+    <!-- ★改logo在這裡！
          做法：先把logo圖片(檔名例如 logo.png)上傳到跟index.html同一個資料夾，
-         （記得把 logo_48.jpg 換成你實際上傳的圖片檔名） -->
+         然後把下面這行  <span>Logo<br>放置處</span>  整行刪掉，
+         換成這行：  <img src="logo.png" alt="輔大青韻獎logo">
+         （記得把 logo.png 換成你實際上傳的圖片檔名） -->
     <div class="logo">
-      <img src="logo_48.jpg" alt="輔大青韻獎logo">
+      <span>Logo<br>放置處</span>
     </div>
 
-    <!-- 改屆數在這裡！（下面三行的 49 / 49TH 換成新的屆數即可） -->
+    <!-- ★改屆數在這裡！（下面三行的 49 / 49TH 換成新的屆數即可） -->
     <div class="title">
       <span class="eyebrow">FU JEN · 49TH</span>
       <div class="handle">fjuchinyun_49</div>
@@ -259,12 +261,12 @@
     </div>
 
     <div class="socials">
-      <!-- 改Threads網址在這裡！（把 href="..." 引號內的網址換掉） -->
+      <!-- ★改Threads網址在這裡！（把 href="..." 引號內的網址換掉） -->
       <a class="soc" href="https://www.threads.com/@fjuchinyun_48" target="_blank" rel="noopener" aria-label="Threads">
         <span class="soc-at">@</span>
       </a>
 
-      <!-- 改IG網址在這裡！（把 href="..." 引號內的網址換掉） -->
+      <!-- ★改IG網址在這裡！（把 href="..." 引號內的網址換掉） -->
       <a class="soc" href="https://www.instagram.com/fjuchinyun_48?igsh=MXFjcDI5Y2U4amEzaw==" target="_blank" rel="noopener" aria-label="Instagram">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="3" width="18" height="18" rx="5"/>
@@ -273,7 +275,7 @@
         </svg>
       </a>
 
-      <!-- 改FB網址在這裡！（把 href="..." 引號內的網址換掉） -->
+      <!-- ★改FB網址在這裡！（把 href="..." 引號內的網址換掉） -->
       <a class="soc" href="https://www.facebook.com/fjuchinyun" target="_blank" rel="noopener" aria-label="Facebook">
         <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
           <path d="M14 9h3l.5-3H14V4.5c0-.9.3-1.5 1.6-1.5H17V.3C16.7.2 15.7 0 14.6 0 12.2 0 10.5 1.5 10.5 4.2V6H8v3h2.5v9h3.5V9z"/>
@@ -283,9 +285,15 @@
 
     <div class="links">
 
-      <!-- 新增項目在這裡！-->
+      <!-- ★新增項目在這裡！
+           要多加一個項目(例如初賽報名表單)，就複製下面整段 <a class="link">...</a> 貼在這裡，
+           再改三個地方：
+             1. href="..."     → 換成要連到的網址
+             2. <div class="name">  → 換成項目標題
+             3. <div class="desc">  → 換成底下的小說明
+           最前面 <div class="icon">🎪</div> 裡的圖示(emoji)也可以換成別的 -->
 
-      <!-- 改市集招募表單網址在這裡！(屆數記得也要改) -->
+      <!-- ★改市集招募表單網址在這裡！ -->
       <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLSdrP1IR5cICU_wI-M6yIjxuKnBARARk191aHvuCqYys1Gt_ZA/viewform?usp=publish-editor" target="_blank" rel="noopener">
         <div class="icon">🎪</div>
         <div class="text">
@@ -295,9 +303,20 @@
         <div class="arrow">→</div>
       </a>
 
+      <!-- 常見問題 Q&A 入口：點了會跳到 qa.html 這個問答頁面。
+           問答內容要去 qa.html 裡面改，不是在這裡。 -->
+      <a class="link" href="qa.html">
+        <div class="icon">🎵</div>
+        <div class="text">
+          <div class="name">常見問題 Q&amp;A</div>
+          <div class="desc">報名、資格、規則，一次看懂</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
     </div>
 
-    <!-- 改屆數在這裡！（頁尾的 49） -->
+    <!-- ★改屆數在這裡！（頁尾的 49） -->
     <div class="foot">FU JEN CHIN YUN AWARD · 49</div>
 
   </div>
