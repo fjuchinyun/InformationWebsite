@@ -107,7 +107,10 @@
   .note-btn:active{transform:scale(.96)}
   .note-btn .note-ico{position:relative;line-height:1;display:block}
   /* 關閉時：音符變淡、蓋上一條斜線 */
-  .note-btn.muted{background:var(--ink-soft)}
+  .note-btn.muted{
+    background:var(--ink-soft);
+    box-shadow:0 6px 14px rgba(91,134,160,.45);
+  }
   .note-btn.muted .note-ico{opacity:.85}
   .note-btn.muted .note-ico::after{
     content:"";
@@ -489,7 +492,7 @@
     var btn = document.getElementById('musicToggle');
     if(!audio || !btn) return;
 
-    audio.volume = 0.35; // 音量（0～1，數字越小越小聲）
+    audio.volume = 0.6; // 音量（0～1，數字越大越大聲）
 
     function setMuted(isMuted){
       if(isMuted){
