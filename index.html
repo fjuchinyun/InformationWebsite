@@ -373,7 +373,7 @@
          做法：先把logo圖片(檔名例如 logo.jpg)上傳到跟index.html同一個資料夾，
          （記得把 logo_48.jpg 換成你實際上傳的圖片檔名） -->
     <div class="logo">
-      <img src="logo_48.jpg" alt="輔大青韻獎logo">
+      <img src="logo_49.jpg" alt="輔大青韻獎logo">
 
       <!-- 音符音樂開關：點一下播放/靜音音樂。關閉時音符會蓋上斜線。 -->
       <button class="note-btn muted" id="musicToggle" aria-label="播放背景音樂">
@@ -506,37 +506,55 @@
         <div class="item">
           <button class="q">
             <span class="qmark">Q</span>
-            <span class="qtext">報名資格是什麼？誰可以參加？</span>
+            <span class="qtext">不是學生可以參加嗎？</span>
             <span class="plus">+</span>
           </button>
-          <div class="a"><div class="a-inner">（範例答案，請改成實際內容）凡本校在學學生皆可報名參加，詳細資格請參閱簡章說明。</div></div>
+          <div class="a"><div class="a-inner">可以！但是要有身分證明哦</div></div>
         </div>
 
         <div class="item">
           <button class="q">
             <span class="qmark">Q</span>
-            <span class="qtext">可以幾個人一組報名？</span>
+            <span class="qtext">初賽個人組能清唱嗎？</span>
             <span class="plus">+</span>
           </button>
-          <div class="a"><div class="a-inner">（範例答案，請改成實際內容）個人組與團體組皆可報名，團體人數上限請以簡章公告為準。</div></div>
+          <div class="a"><div class="a-inner">初賽只能一人自彈自唱或一個主唱配一個伴奏哦</div></div>
         </div>
 
         <div class="item">
           <button class="q">
             <span class="qmark">Q</span>
-            <span class="qtext">報名要準備哪些資料？</span>
+            <span class="qtext">伴奏的人可以同時幫不同組參賽者伴奏嗎？</span>
             <span class="plus">+</span>
           </button>
-          <div class="a"><div class="a-inner">（範例答案，請改成實際內容）需填寫線上報名表並上傳指定資料，細節請見報名表單說明。</div></div>
+          <div class="a"><div class="a-inner">可以！這部分沒有限制</div></div>
         </div>
 
         <div class="item">
           <button class="q">
             <span class="qmark">Q</span>
-            <span class="qtext">報名截止後還能補件嗎？</span>
+            <span class="qtext">創作組錄影部分需要一鏡到底，且全部人都要露臉嗎？還是可以後製編曲呢？</span>
             <span class="plus">+</span>
           </button>
-          <div class="a"><div class="a-inner">（範例答案，請改成實際內容）如有相關規定將另行公告，建議於截止前完成所有報名程序。</div></div>
+          <div class="a"><div class="a-inner">需要一鏡到底、全部人露臉，且不能後製編曲哦</div></div>
+        </div>
+
+        <div class="item">
+          <button class="q">
+            <span class="qmark">Q</span>
+            <span class="qtext">錄影可以無伴奏清唱嗎？</span>
+            <span class="plus">+</span>
+          </button>
+          <div class="a"><div class="a-inner">錄影也需要有伴奏哦</div></div>
+        </div>
+
+        <div class="item">
+          <button class="q">
+            <span class="qmark">Q</span>
+            <span class="qtext">錄影可以伴奏和人聲分開錄，然後剪接到一起嗎？</span>
+            <span class="plus">+</span>
+          </button>
+          <div class="a"><div class="a-inner">不能哦，伴奏和人聲要一起錄製</div></div>
         </div>
 
         <!-- 新增問答就複製上面一整段 <div class="item">...</div> 貼在這行前面 -->
@@ -555,7 +573,7 @@
     var btn = document.getElementById('musicToggle');
     if(!audio || !btn) return;
 
-    audio.volume = 1; // 音量（0～1，數字越大越大聲）
+    audio.volume = 0.6; // 音量（0～1，數字越大越大聲）
 
     function setMuted(isMuted){
       if(isMuted){
